@@ -18,10 +18,17 @@ class GraphCmd(DoitCmdBase):
         graph.node_attr['color'] = 'lightblue2'
         graph.node_attr['style'] = 'filled'
         for task in control.tasks.values():
-            graph.add_node(task.name)
+            # add nodes
+            node_attrs = {}
+            if task.has_subtask:
+                node_attrs['peripheries'] = '2'
+            graph.add_node(task.name, **node_attrs)
+
+            # add edges
             for sink in task.task_dep:
                 graph.add_edge(task.name, sink)
             for sink in task.setup_tasks:
                 graph.add_edge(task.name, sink)
+
         graph.write('tasks.dot')
 
