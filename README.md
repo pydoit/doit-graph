@@ -1,6 +1,17 @@
 
+# doit-graph
+
 Generates a graph (using graphviz's dot) of tasks.
 
+WIP: not released yet!
+
+
+## install
+
+pip install doit-graph
+
+
+## usage
 
 ```
 $ doit graph
@@ -8,12 +19,21 @@ $ dot -Tpng tasks.dot -o tasks.png
 ```
 
 
+## DEV notes
+
+http://graphviz.org/doc/info/attrs.html
+
+
 ## TODO
 
-- task_dep
-- setup
-- group task / sub-tasks
-- include file_dep, targets
+### 0.1
 
+- option show-hide sub-tasks
+- pos args: show only specified tasks
+
+### 0.x
+
+- include status
+- option include file_dep, targets
 - calc_dep
 - delayed_creation

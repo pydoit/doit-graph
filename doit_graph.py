@@ -25,9 +25,9 @@ class GraphCmd(DoitCmdBase):
             graph.add_node(task.name, **node_attrs)
 
             # add edges
-            for sink in task.task_dep:
-                graph.add_edge(task.name, sink)
             for sink in task.setup_tasks:
+                graph.add_edge(task.name, sink, arrowhead='empty')
+            for sink in task.task_dep:
                 graph.add_edge(task.name, sink)
 
         graph.write('tasks.dot')
