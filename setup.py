@@ -8,6 +8,7 @@ setup(
     author = 'Eduardo Naufel Schettino',
     url = 'http://github.com/pydoit/doit-graph',
     py_modules=['doit_graph'],
+    install_requires = ['pygraphviz'],
     entry_points = {
         'doit.COMMAND': [
             'graph = doit_graph:GraphCmd'

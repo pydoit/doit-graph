@@ -28,8 +28,8 @@ http://graphviz.org/doc/info/attrs.html
 
 ### 0.1
 
-- option show-hide sub-tasks
 - pos args: show only specified tasks
+- graph legend
 
 ### 0.x
 
