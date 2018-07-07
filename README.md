@@ -3,6 +3,8 @@
 
 Generates a graph (using graphviz's dot) of [doit](http://pydoit.org) tasks.
 
+Sample for [doit tutorial](http://pydoit.org/tutorial_1.html) tasks:
+
 ![Sample output](/tasks.png)
 
 
