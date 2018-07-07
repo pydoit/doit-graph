@@ -1,3 +1,10 @@
+"""doit-graph
+
+The MIT License
+
+Copyright (c) 2018 Eduardo Naufel Schettino
+"""
+
 from collections import deque
 
 import pygraphviz

@@ -1,0 +1,19 @@
+digraph G {
+    fontname="Helvetica";
+    labelloc=t;
+    label="Legend";
+
+    node[style=filled, fontname="Helvetica", color=lightblue2];
+    edge[fontname="Helvetica"];
+
+    ta0[label="task A"]
+    ta1[label="task B"]
+    ta0->ta1 [label="  task-dep"];
+
+    tb0[label="task A"]
+    tb1[label="task B"]
+    tb0->tb1 [label="  setup task", arrowhead=empty];
+
+    tg[label="task-group", peripheries=2]
+
+}

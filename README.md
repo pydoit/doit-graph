@@ -1,9 +1,9 @@
 
 # doit-graph
 
-Generates a graph (using graphviz's dot) of tasks.
+Generates a graph (using graphviz's dot) of [doit](http://pydoit.org) tasks.
 
-WIP: not released yet!
+![Sample output](/tasks.png)
 
 
 ## install
@@ -18,22 +18,27 @@ $ doit graph
 $ dot -Tpng tasks.dot -o tasks.png
 ```
 
+- By default sub-tasks are hidden. Use option `--show-subtasks` to display them.
+
+- By default all tasks are included in graph.
+  It is possible to specify which tasks should be included in the graph (note dependencies will be automatically included).
+
+### legend
+
+![Legend](/legend.png)
+
+- group-tasks have double bondary border in the node
+- `task-dep` arrow have a solid head
+- `setup-task` arrow have an empty head
+
+
+
+### limitations
+
+`calc_dep` and `delayed-tasks` are not supported.
+
+
 
 ## DEV notes
 
 http://graphviz.org/doc/info/attrs.html
-
-
-## TODO
-
-### 0.1
-
-- pos args: show only specified tasks
-- graph legend
-
-### 0.x
-
-- include status
-- option include file_dep, targets
-- calc_dep
-- delayed_creation
