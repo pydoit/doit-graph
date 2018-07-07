@@ -1,3 +1,5 @@
+from collections import deque
+
 import pygraphviz
 
 from doit.cmd_base import DoitCmdBase
@@ -12,6 +14,7 @@ opt_subtasks = {
     'default': False,
     'help': 'include subtasks in graph',
 }
+
 
 
 class GraphCmd(DoitCmdBase):
@@ -39,7 +42,7 @@ class GraphCmd(DoitCmdBase):
             self.graph.add_edge(source, sink, arrowhead=arrowhead)
 
 
-    def _execute(self, subtasks):
+    def _execute(self, subtasks, pos_args=None):
         # init
         control = TaskControl(self.task_list)
         self.tasks = control.tasks
@@ -52,7 +55,17 @@ class GraphCmd(DoitCmdBase):
         self.graph.node_attr['style'] = 'filled'
 
         # populate graph
-        for task in control.tasks.values():
+        processed = set() # str - task name
+        if pos_args:
+            to_process = deque(pos_args)
+        else:
+            to_process = deque(control.tasks.keys())
+
+        while to_process:
+            task = control.tasks[to_process.popleft()]
+            if task.name in processed:
+                continue
+            processed.add(task.name)
 
             # add nodes
             node_attrs = {}
@@ -64,8 +77,12 @@ class GraphCmd(DoitCmdBase):
             # add edges
             for sink_name in task.setup_tasks:
                 self.add_edge(task.name, sink_name, arrowhead='empty')
+                if sink_name not in processed:
+                    to_process.append(sink_name)
             for sink_name in task.task_dep:
                 self.add_edge(task.name, sink_name, arrowhead='')
+                if sink_name not in processed:
+                    to_process.append(sink_name)
 
         self.graph.write('tasks.dot')
 
