@@ -15,12 +15,23 @@ opt_subtasks = {
     'help': 'include subtasks in graph',
 }
 
+opt_outfile = {
+    'name': 'outfile',
+    'short': 'o',
+    'long': 'output',
+    'type': str,
+    'default': None, # actually default dependends parameters
+    'help': 'name of generated dotfile',
+}
+
 
 
 class GraphCmd(DoitCmdBase):
     doc_purpose = "create task's dependency-graph image"
+    doc_description = None
+    doc_usage = "[TASK ...]"
 
-    cmd_options = (opt_subtasks, )
+    cmd_options = (opt_subtasks, opt_outfile,)
 
 
     def node(self, task_name):
@@ -42,7 +53,7 @@ class GraphCmd(DoitCmdBase):
             self.graph.add_edge(source, sink, arrowhead=arrowhead)
 
 
-    def _execute(self, subtasks, pos_args=None):
+    def _execute(self, subtasks, outfile, pos_args=None):
         # init
         control = TaskControl(self.task_list)
         self.tasks = control.tasks
@@ -84,5 +95,8 @@ class GraphCmd(DoitCmdBase):
                 if sink_name not in processed:
                     to_process.append(sink_name)
 
-        self.graph.write('tasks.dot')
+        if not outfile:
+            name = pos_args[0] if len(pos_args)==1 else 'tasks'
+            outfile = '{}.dot'.format(name)
+        self.graph.write(outfile)
 
