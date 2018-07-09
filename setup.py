@@ -6,7 +6,7 @@ with open("README.md", "r") as fh:
 setup(
     name = 'doit-graph',
     description = "doit cmd plugin: create task's dependency-graph image",
-    version = '0.1.0',
+    version = '0.1.1',
     license = 'MIT',
     author = 'Eduardo Naufel Schettino',
     url = 'http://github.com/pydoit/doit-graph',

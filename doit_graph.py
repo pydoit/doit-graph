@@ -5,6 +5,8 @@ The MIT License
 Copyright (c) 2018 Eduardo Naufel Schettino
 """
 
+__version__ = (0, 1, 1)
+
 from collections import deque
 
 import pygraphviz
@@ -28,14 +30,27 @@ opt_outfile = {
     'long': 'output',
     'type': str,
     'default': None, # actually default dependends parameters
-    'help': 'name of generated dotfile',
+    'help': 'name of generated dot-file',
 }
 
 
 
 class GraphCmd(DoitCmdBase):
-    doc_purpose = "create task's dependency-graph image"
-    doc_description = None
+    name = 'graph'
+    doc_purpose = "create task's dependency-graph (in dot file format)"
+    doc_description = """Creates a DAG (directly acyclic graph) representaion of tasks in graphviz's **dot** format (http://graphviz.org).
+
+**dot** files can be convert to images with i.e.
+
+$ dot -Tpng tasks.dot -o tasks.png
+
+Legend:
+  - group-tasks have double bondary border in the node
+  - `task-dep` arrow have a solid head
+  - `setup-task` arrow have an empty head
+
+Website/docs: https://github.com/pydoit/doit-graph
+    """
     doc_usage = "[TASK ...]"
 
     cmd_options = (opt_subtasks, opt_outfile,)
@@ -105,5 +120,6 @@ class GraphCmd(DoitCmdBase):
         if not outfile:
             name = pos_args[0] if len(pos_args)==1 else 'tasks'
             outfile = '{}.dot'.format(name)
+        print('Generated file: {}'.format(outfile))
         self.graph.write(outfile)
 

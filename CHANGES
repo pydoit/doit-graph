@@ -3,6 +3,13 @@
 Changes
 =======
 
+0.1.1 (*2018-07-10*)
+====================
+
+- improve description given by `doit help graph`
+- print name of generated file
+
+
 0.1.0 (*2018-07-07*)
 ====================
 
