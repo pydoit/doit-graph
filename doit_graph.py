@@ -2,10 +2,10 @@
 
 The MIT License
 
-Copyright (c) 2018 Eduardo Naufel Schettino
+Copyright (c) 2018-present Eduardo Naufel Schettino
 """
 
-__version__ = (0, 1, 1)
+__version__ = (0, 2, 0)
 
 from collections import deque
 
@@ -24,6 +24,15 @@ opt_subtasks = {
     'help': 'include subtasks in graph',
 }
 
+opt_reverse = {
+    'name': 'reverse',
+    'short': '',
+    'long': 'reverse',
+    'type': bool,
+    'default': False,
+    'help': 'draw edge in execution order, i.e. the reverse of dependency direction'
+}
+
 opt_outfile = {
     'name': 'outfile',
     'short': 'o',
@@ -38,14 +47,14 @@ opt_outfile = {
 class GraphCmd(DoitCmdBase):
     name = 'graph'
     doc_purpose = "create task's dependency-graph (in dot file format)"
-    doc_description = """Creates a DAG (directly acyclic graph) representaion of tasks in graphviz's **dot** format (http://graphviz.org).
+    doc_description = """Creates a DAG (directly acyclic graph) representation of tasks in graphviz's **dot** format (http://graphviz.org).
 
 **dot** files can be convert to images with i.e.
 
 $ dot -Tpng tasks.dot -o tasks.png
 
 Legend:
-  - group-tasks have double bondary border in the node
+  - group-tasks have double boundary border in the node
   - `task-dep` arrow have a solid head
   - `setup-task` arrow have an empty head
 
@@ -53,7 +62,7 @@ Website/docs: https://github.com/pydoit/doit-graph
     """
     doc_usage = "[TASK ...]"
 
-    cmd_options = (opt_subtasks, opt_outfile,)
+    cmd_options = (opt_subtasks, opt_outfile, opt_reverse)
 
 
     def node(self, task_name):
@@ -75,7 +84,7 @@ Website/docs: https://github.com/pydoit/doit-graph
             self.graph.add_edge(source, sink, arrowhead=arrowhead)
 
 
-    def _execute(self, subtasks, outfile, pos_args=None):
+    def _execute(self, subtasks, reverse, outfile, pos_args=None):
         # init
         control = TaskControl(self.task_list)
         self.tasks = control.tasks
@@ -121,5 +130,8 @@ Website/docs: https://github.com/pydoit/doit-graph
             name = pos_args[0] if len(pos_args)==1 else 'tasks'
             outfile = '{}.dot'.format(name)
         print('Generated file: {}'.format(outfile))
-        self.graph.write(outfile)
+        if (reverse):
+            self.graph.reverse().write(outfile)
+        else:
+            self.graph.write(outfile)
 

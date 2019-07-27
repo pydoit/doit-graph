@@ -25,6 +25,12 @@ $ dot -Tpng tasks.dot -o tasks.png
 - By default all tasks are included in graph.
   It is possible to specify which tasks should be included in the graph (note dependencies will be automatically included).
 
+- To draw tasks in execution order (i.e. reverse of dependency direction), use option `--reverse`
+
+```
+$ doit graph --reverse
+```
+
 ### legend
 
 ![Legend](/legend.png)
