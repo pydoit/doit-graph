@@ -3,7 +3,7 @@
 Changes
 =======
 
-0.1.2 (*2019-07-21*)
+0.2.0 (*2019-07-27*)
 ====================
 
 - Support drawing tasks in execution order using `--reverse` option

@@ -2,10 +2,10 @@
 
 The MIT License
 
-Copyright (c) 2018 Eduardo Naufel Schettino
+Copyright (c) 2018-present Eduardo Naufel Schettino
 """
 
-__version__ = (0, 1, 1)
+__version__ = (0, 2, 0)
 
 from collections import deque
 
