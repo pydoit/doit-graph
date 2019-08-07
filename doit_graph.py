@@ -33,6 +33,15 @@ opt_reverse = {
     'help': 'draw edge in execution order, i.e. the reverse of dependency direction'
 }
 
+opt_horizontal = {
+    'name': 'horizontal',
+    'short': 'h',
+    'long': 'horizontal',
+    'type': bool,
+    'default': False,
+    'help': 'draw graph in left-right mode, i.e. add rankdir=LR to digraph output'
+}
+
 opt_outfile = {
     'name': 'outfile',
     'short': 'o',
@@ -62,7 +71,7 @@ Website/docs: https://github.com/pydoit/doit-graph
     """
     doc_usage = "[TASK ...]"
 
-    cmd_options = (opt_subtasks, opt_outfile, opt_reverse)
+    cmd_options = (opt_subtasks, opt_outfile, opt_reverse, opt_horizontal)
 
 
     def node(self, task_name):
@@ -84,7 +93,7 @@ Website/docs: https://github.com/pydoit/doit-graph
             self.graph.add_edge(source, sink, arrowhead=arrowhead)
 
 
-    def _execute(self, subtasks, reverse, outfile, pos_args=None):
+    def _execute(self, subtasks, reverse, horizontal, outfile, pos_args=None):
         # init
         control = TaskControl(self.task_list)
         self.tasks = control.tasks
@@ -95,6 +104,9 @@ Website/docs: https://github.com/pydoit/doit-graph
         self.graph = pygraphviz.AGraph(strict=False, directed=True)
         self.graph.node_attr['color'] = 'lightblue2'
         self.graph.node_attr['style'] = 'filled'
+
+        if (horizontal):
+            self.graph.graph_attr.update(rankdir='LR')
 
         # populate graph
         processed = set() # str - task name
