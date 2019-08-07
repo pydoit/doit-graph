@@ -3,6 +3,13 @@
 Changes
 =======
 
+
+0.2.1 (*2019-08-06*)
+====================
+
+- Support drawing tasks in left-to-right layout using `--horizontal` or `-h` option
+
+
 0.2.0 (*2019-07-27*)
 ====================
 
