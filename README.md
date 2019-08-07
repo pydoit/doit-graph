@@ -31,6 +31,12 @@ $ dot -Tpng tasks.dot -o tasks.png
 $ doit graph --reverse
 ```
 
+- To draw tasks from left-to-right instead of the default top-to-bottom, use option `--horizontal` or `-h`
+
+```
+$ doit graph --horizontal
+```
+
 ### legend
 
 ![Legend](/legend.png)
